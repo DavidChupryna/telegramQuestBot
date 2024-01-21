@@ -66,7 +66,7 @@ def create_user(message):
     elif user_id in user_data:
         create_character(user_id)
         bot.send_message(message.chat.id, f"{message.from_user.first_name} рад вас снова видеть,"
-                                          f"Money: {user_data[user_id]['money']} Weapon: {user_data[user_id]['weapon']}")
+                                          f"Монеты: {user_data[user_id]['money']} Оружие: {user_data[user_id]['weapon']}")
 
     location_one(message.chat.id)
 
@@ -75,10 +75,10 @@ def location_one(chat_id):
     keyboard = create_three_button(locations["kingdom_light"]["name"],
                                    locations["kingdom_dark"]["name"],
                                    locations["kingdom_magic"]["name"])
+    bot.send_photo(chat_id, locations["road"]["image"])
     bot.send_message(chat_id, f"{locations["road"]["name"]}: \n"
                                       f"{locations["road"]["descriptions"]}.\n"
                               f"Выбери свой путь!", reply_markup=keyboard)
-    bot.send_photo(chat_id, locations["road"]["image"])
 
 
 @bot.message_handler(func=lambda message: message.text in [locations["kingdom_light"]["name"],
@@ -86,65 +86,130 @@ def location_one(chat_id):
                                                            locations["kingdom_magic"]["name"]])
 def location_two(message):
     if message.text == locations["kingdom_light"]["name"]:
-        keyboard = create_two_button(locations['light_city']['name'], locations['garden']['name'])
+        keyboard = create_two_button(locations['light_city']['name'], locations['fruit_gardens']['name'])
+        bot.send_photo(message.chat.id, locations["kingdom_light"]["image"])
         bot.send_message(message.chat.id, f"Добро пожаловать в {locations['kingdom_light']['name']}\n"
                                           f"{locations['kingdom_light']['descriptions']}")
-        bot.send_photo(message.chat.id, locations["kingdom_light"]["image"])
         bot.send_message(message.chat.id, f"Выбери куда пойти дальше? \n"
                                           f"{locations['light_city']['name']}\n"
-                                          f"{locations['garden']['name']}", reply_markup=keyboard)
+                                          f"{locations['fruit_gardens']['name']}", reply_markup=keyboard)
+
     elif message.text == locations["kingdom_dark"]["name"]:
+        bot.send_photo(message.chat.id, locations["kingdom_dark"]["image"])
         bot.send_message(message.chat.id, f"Ты попал в {locations['kingdom_dark']['name']}\n"
                                           f"{locations['kingdom_dark']['descriptions']}")
-        bot.send_photo(message.chat.id, locations["kingdom_dark"]["image"])
+
     elif message.text == locations["kingdom_magic"]["name"]:
+        keyboard = create_two_button(locations['witch_city']['name'], locations['illusion_forest']['name'])
+        bot.send_photo(message.chat.id, locations["kingdom_magic"]["image"])
         bot.send_message(message.chat.id, f"Вас приветствует {locations['kingdom_magic']['name']}\n"
                                           f"{locations['kingdom_magic']['descriptions']}")
-        bot.send_photo(message.chat.id, locations["kingdom_magic"]["image"])
+        bot.send_message(message.chat.id, f"Выбери куда пойти дальше? \n"
+                                          f"{locations['witch_city']['name']}\n"
+                                          f"{locations['illusion_forest']['name']}", reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations['light_city']['name'], locations['garden']['name']])
-def location_three(message):
+@bot.message_handler(func=lambda message: message.text in [locations['light_city']['name'], locations['fruit_gardens']['name']])
+def location_light(message):
     if message.text == locations['light_city']['name']:
-        keyboard = create_four_button(locations['light_city']['jobs'][0]['name'],
-                                      locations['light_city']['jobs'][1]['name'],
-                                      locations['light_city']['jobs'][2]['name'],
-                                    locations["road"]["name"])
+        keyboard = create_four_button(locations['light_city']['city_jobs'][0]['name'],
+                                      locations['light_city']['city_jobs'][1]['name'],
+                                      locations['light_city']['city_jobs'][2]['name'],
+                                      locations["road"]["name"])
 
-        bot.send_message(message.chat.id, f"Ты пришел в {locations['light_city']['name']}!\n"
-                                          f"{locations['light_city']['descriptions']}", reply_markup=keyboard)
         bot.send_photo(message.chat.id, locations["light_city"]["image"])
+        bot.send_message(message.chat.id, f"{locations['light_city']['descriptions']}\n"
+                                          f"В городе тебе предложили работу:", reply_markup=keyboard)
 
-    elif message.text == 'Desert':
-        bot.send_message(message.chat.id, "Desert Hello")
-        # bot.send_photo(message.chat.id, open(locations["desert"]["image"], "rb"))
+    elif message.text == locations['fruit_gardens']['name']:
+        keyboard = create_four_button(locations['fruit_gardens']['garden_jobs'][0]['name'],
+                                      locations['fruit_gardens']['garden_jobs'][1]['name'],
+                                      locations['fruit_gardens']['garden_jobs'][2]['name'],
+                                      locations["road"]["name"])
+
+        bot.send_photo(message.chat.id, locations["fruit_gardens"]["image"])
+        bot.send_message(message.chat.id, f"{locations['fruit_gardens']['descriptions']}\n"
+                                          f"В саду тебя попросили помочь за денежную плату", reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations['light_city']['jobs'][0]['name'],
-                                      locations['light_city']['jobs'][1]['name'],
-                                      locations['light_city']['jobs'][2]['name'],
-                                      locations["road"]["name"]])
-def job_or_back(message):
+@bot.message_handler(func=lambda message: message.text in [locations['light_city']['city_jobs'][0]['name'],
+                                                           locations['light_city']['city_jobs'][1]['name'],
+                                                           locations['light_city']['city_jobs'][2]['name'],
+                                                           locations["road"]["name"]])
+def city_jobs_or_back(message):
     user_id = str(message.from_user.id)
-    if message.text == locations['light_city']['jobs'][0]['name']:
-        bot.send_message(message.chat.id, "Ты благополучно защитил караван от бандитов и заработал 200 монет!")
-
+    if message.text == locations['light_city']['city_jobs'][0]['name']:
         user_data[user_id]['money'] += 200
-    elif message.text == locations['light_city']['jobs'][1]['name']:
-        bot.send_message(message.chat.id, "Ты хорошо выполнил работу ремесленика, держи 50 монет!")
+        bot.send_photo(message.chat.id, locations['light_city']['city_jobs'][0]['image'])
+        bot.send_message(message.chat.id, f"Ты благополучно защитил караван от бандитов и заработал 200 монет!\n"
+                                          f"У тебя - {user_data[user_id]['money']} монет.")
 
+    elif message.text == locations['light_city']['city_jobs'][1]['name']:
         user_data[user_id]['money'] += 50
-    elif message.text == locations['light_city']['jobs'][2]['name']:
-        bot.send_message(message.chat.id, "Ты молодец! Праздник был замечателен, местные жителе в восторге! "
-                                          "Держи твои 100 монет!")
+        bot.send_photo(message.chat.id, locations['light_city']['city_jobs'][1]['image'])
+        bot.send_message(message.chat.id, f"Ты хорошо выполнил работу ремесленика, держи 50 монет!\n"
+                                          f"У тебя - {user_data[user_id]['money']} монет.")
 
+    elif message.text == locations['light_city']['city_jobs'][2]['name']:
         user_data[user_id]['money'] += 100
+        bot.send_photo(message.chat.id, locations['light_city']['city_jobs'][2]['image'])
+        bot.send_message(message.chat.id, f"Ты молодец! Праздник был замечателен, местные жителе в восторге! "
+                                          f"Держи твои 100 монет!\nУ тебя - {user_data[user_id]['money']} монет.")
+
     elif message.text == locations["road"]["name"]:
         location_one(message.chat.id)
+
     if user_data[user_id]['money'] > 500:
         bot.send_message(message.chat.id, f"Ты заработал достаточно монет чтобы прикупить себе что-нибудь. "
                                           f"Отправляйся в {locations["kingdom_magic"]["name"]} и посети местного торговца.")
     save_user_data(user_data, data_path)
+
+
+@bot.message_handler(func=lambda message: message.text in [locations['fruit_gardens']['garden_jobs'][0]['name'],
+                                                           locations['fruit_gardens']['garden_jobs'][1]['name'],
+                                                           locations['fruit_gardens']['garden_jobs'][2]['name'],
+                                                           locations["road"]["name"]])
+def garden_jobs_or_back(message):
+    user_id = str(message.from_user.id)
+    if message.text == locations['fruit_gardens']['garden_jobs'][0]['name']:
+        user_data[user_id]['money'] += 50
+        bot.send_photo(message.chat.id, locations['fruit_gardens']['garden_jobs'][0]['image'])
+        bot.send_message(message.chat.id, f"Ты собрал все полезные травы! Держи вознаграждение в виде 50 монет.\n"
+                                          f"У тебя - {user_data[user_id]['money']} монет.")
+
+    elif message.text == locations['fruit_gardens']['garden_jobs'][1]['name']:
+        user_data[user_id]['money'] += 75
+        bot.send_photo(message.chat.id, locations['fruit_gardens']['garden_jobs'][1]['image'])
+        bot.send_message(message.chat.id, f"Надо же! Не единого сорняка! Держи честно заработанные 75 монет.\n"
+                                          f"У тебя - {user_data[user_id]['money']} монет.")
+
+    elif message.text == locations['fruit_gardens']['garden_jobs'][2]['name']:
+        user_data[user_id]['money'] += 100
+        bot.send_photo(message.chat.id, locations['fruit_gardens']['garden_jobs'][2]['image'])
+        bot.send_message(message.chat.id, f"Ты сделал большое дело, держи свои 100 монет.\n"
+                                          f"У тебя - {user_data[user_id]['money']} монет.")
+
+    elif message.text == locations["road"]["name"]:
+        location_one(message.chat.id)
+
+    if user_data[user_id]['money'] > 500:
+        bot.send_message(message.chat.id, f"Ты заработал достаточно монет чтобы прикупить себе что-нибудь. "
+                                          f"Отправляйся в {locations["kingdom_magic"]["name"]} и посети местного торговца.")
+    save_user_data(user_data, data_path)
+
+
+@bot.message_handler(func=lambda message: message.text in [locations['witch_city']['name'], locations['illusion_forest']['name']])
+def location_magic(message):
+    if message.text == locations['witch_city']['name']:
+        bot.send_photo(message.chat.id, locations['witch_city']['image'])
+        bot.send_message(message.chat.id, f"Ты попал в {locations['witch_city']['name']}\n"
+                                          f"{locations['witch_city']['descriptions']}")
+
+    elif message.text == locations['illusion_forest']['name']:
+        bot.send_photo(message.chat.id, locations['illusion_forest']['image'])
+        bot.send_message(message.chat.id, f"Ты попал в {locations['illusion_forest']['name']}\n"
+                                          f"{locations['illusion_forest']['descriptions']}")
+
 
 @bot.message_handler(func=lambda message: message.text in ["sword", "spear", 'axe'])
 def take_weapon(message):
