@@ -82,7 +82,29 @@ locations = {
         "name": "Колдовской город",
         "descriptions": "Колдовской Город — таинственное место, где запреты сливаются с возможностями. "
                         "В его торговых улочках торгуют всем, от волшебных зелий и артефактов до экзотических ингредиентов.",
-        "image": "https://disk.yandex.ru/i/P2xe_Zc3FolsZQ"
+        "image": "https://disk.yandex.ru/i/P2xe_Zc3FolsZQ",
+
+    },
+    "weapon_shop": {
+        "name": "Оружейная лавка",
+        "descriptions": "Магазин предлагает широкий ассортимент: от внушительных двуручных мечей до изысканных кинжалов "
+                        "с инкрустацией драгоценными камнями",
+        "image": "https://disk.yandex.ru/i/6UwYLAu804AhdQ",
+        "weapons": [{
+            "name": "Меч затмения",
+            "descriptions": "",
+            "image": "https://disk.yandex.ru/i/jF7LlsoxbfqwSQ"
+        },
+        {
+            "name": "Левиафан",
+            "descriptions": "",
+            "image": "https://disk.yandex.ru/i/QOAQHQR7fss6Bg"
+            },
+        {
+            "name": "Копье ужаса",
+            "descriptions": "",
+            "image": "https://disk.yandex.ru/i/jnN8ImkaTpnxDg"
+        }]
     },
     "illusion_forest": {
         "name": "Лес иллюзий",
@@ -91,3 +113,5 @@ locations = {
         "image": "https://disk.yandex.ru/i/QaE1XksibeIVwg"
     }
 }
+
+back_on_road = "Вернуться на дорогу трех королевств"
