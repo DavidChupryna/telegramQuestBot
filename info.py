@@ -1,8 +1,6 @@
 bot_responses = {
     "hello": ["Привет, путник!", "Здравствуйте!", "Приветствую!", "Добрый день!", "Здорова!", "Хай",
-              "Хеллоу(да-да я из Англии)", "Привет, шеф!"],
-    "buy": ["До свидания!", "Удачи, путник!", "До скорой встречи!", "Возвращайтесь, если что!",
-            "Да пребудет с вами сила", "Ещё увидимся!"]}
+              "Хеллоу(да-да я из Англии)", "Привет, шеф!"]}
 
 locations = {
     "road": {
@@ -80,7 +78,9 @@ locations = {
         "descriptions": "Это место наполнено зловещей аурой и мистической энергией, словно само восстание из прошлого. "
                         "В самом сердце крепости раскинул своё гнездо Тёмный Рыцарь, хранитель древнего артефакта. "
                         "Тёмная броня, покрытая рунами, излучает тьму, а его глаза сверкают мраком в ответ на ваши шаги.",
-        "image": "https://disk.yandex.ru/i/Oq5oMo5R_Xxgeg"
+        "image": "https://disk.yandex.ru/i/Oq5oMo5R_Xxgeg",
+        "final_fight_img": ["https://disk.yandex.ru/i/dcjUG5TltJ_eLw", "https://disk.yandex.ru/i/9iyMiA9UFR_4eA",
+                            "https://disk.yandex.ru/i/6Tfi9g0kal3pEg", "https://disk.yandex.ru/i/PeroRlOc5YGTxQ"]
     },
     "witch_city": {
         "name": "Колдовской город",
@@ -105,7 +105,7 @@ locations = {
             "image": "https://disk.yandex.ru/i/QOAQHQR7fss6Bg"
             },
         {
-            "name": "Копье ужаса",
+            "name": "Копьё ужаса",
             "descriptions": "",
             "image": "https://disk.yandex.ru/i/jnN8ImkaTpnxDg"
         }]
@@ -120,9 +120,13 @@ locations = {
             "riddle": "Ветры шепчут тайны, листья шорохом говорят, \n"
                       "В лесу волшебном скрыто, то что глазом не видать.",
             "wrong_answers": ["Время", "Эхо"],
-            "true_answer": "Тайна"
+            "true_answer": "Тайна",
+            "swamp_image": "https://disk.yandex.ru/i/gAy4mNxR5xZt9g"
         }
     }
 }
 
 back_on_road = "Вернуться на дорогу трех королевств"
+went_to_cat = "Подойти к коту"
+ready_to_fight = "Готов!"
+image_error = "Что-то пошло не так с загрузкой изображения! Но мы над этим работаем!"
