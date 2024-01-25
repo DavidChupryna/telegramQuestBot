@@ -304,7 +304,7 @@ def buy_weapon(message):
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][0]['name']}🗡\n')
+            bot.send_message(message.chat.id, f"Ты купил {locations['weapon_shop']['weapons'][0]['name']}🗡\n")
             user_data[user_id]['weapon'] = 'Sword'
             user_data[user_id]['money'] -= 400
 
@@ -317,7 +317,7 @@ def buy_weapon(message):
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][1]['name']}🪓\n')
+            bot.send_message(message.chat.id, f"Ты купил {locations['weapon_shop']['weapons'][1]['name']}🪓\n")
             user_data[user_id]['weapon'] = 'Axe'
             user_data[user_id]['money'] -= 500
 
@@ -330,7 +330,7 @@ def buy_weapon(message):
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][2]['name']}\n')
+            bot.send_message(message.chat.id, f"Ты купил {locations['weapon_shop']['weapons'][2]['name']}\n")
             user_data[user_id]['weapon'] = 'Spear'
             user_data[user_id]['money'] -= 300
 
