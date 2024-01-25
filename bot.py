@@ -63,26 +63,26 @@ def create_user(message):
 
 
 def location_one(chat_id):
-    keyboard = create_buttons([locations["kingdom_light"]["name"],
-                               locations["kingdom_dark"]["name"],
-                               locations["kingdom_magic"]["name"]])
+    keyboard = create_buttons([locations['kingdom_light']['name'],
+                               locations['kingdom_dark']['name'],
+                               locations['kingdom_magic']['name']])
     try:
-        bot.send_photo(chat_id, locations["road"]["image"])
+        bot.send_photo(chat_id, locations['road']['image'])
     except:
         bot.send_message(chat_id, image_error)
 
-    bot.send_message(chat_id, f"{locations["road"]["name"]}: \n"
+    bot.send_message(chat_id, f"{locations['road']['name']}: \n"
                               f"Выбери свой путь!", reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations["kingdom_light"]["name"],
-                                                           locations["kingdom_dark"]["name"],
-                                                           locations["kingdom_magic"]["name"]])
+@bot.message_handler(func=lambda message: message.text in [locations['kingdom_light']['name'],
+                                                           locations['kingdom_dark']['name'],
+                                                           locations['kingdom_magic']['name']])
 def three_kingdom(message):
-    if message.text == locations["kingdom_light"]["name"]:
+    if message.text == locations['kingdom_light']['name']:
         keyboard = create_buttons([locations['light_city']['name'], locations['fruit_gardens']['name']])
         try:
-            bot.send_photo(message.chat.id, locations["kingdom_light"]["image"])
+            bot.send_photo(message.chat.id, locations['kingdom_light']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
@@ -92,10 +92,10 @@ def three_kingdom(message):
                                           f"{locations['light_city']['name']}\n"
                                           f"{locations['fruit_gardens']['name']}", reply_markup=keyboard)
 
-    elif message.text == locations["kingdom_dark"]["name"]:
-        keyboard = create_buttons([locations["dark_tunnel"]["name"], back_on_road])
+    elif message.text == locations['kingdom_dark']['name']:
+        keyboard = create_buttons([locations['dark_tunnel']['name'], back_on_road])
         try:
-            bot.send_photo(message.chat.id, locations["kingdom_dark"]["image"])
+            bot.send_photo(message.chat.id, locations['kingdom_dark']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
@@ -103,10 +103,10 @@ def three_kingdom(message):
                                           f"{locations['kingdom_dark']['descriptions']}")
         bot.send_message(message.chat.id, "Впереди тебя ждут темные тунелли. Ты готов?", reply_markup=keyboard)
 
-    elif message.text == locations["kingdom_magic"]["name"]:
+    elif message.text == locations['kingdom_magic']['name']:
         keyboard = create_buttons([locations['witch_city']['name'], locations['illusion_forest']['name']])
         try:
-            bot.send_photo(message.chat.id, locations["kingdom_magic"]["image"])
+            bot.send_photo(message.chat.id, locations['kingdom_magic']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
@@ -126,7 +126,7 @@ def location_light(message):
                                    locations['light_city']['city_jobs'][2]['name'],
                                    back_on_road])
         try:
-            bot.send_photo(message.chat.id, locations["light_city"]["image"])
+            bot.send_photo(message.chat.id, locations['light_city']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
@@ -143,7 +143,7 @@ def location_light(message):
                                    back_on_road])
 
         try:
-            bot.send_photo(message.chat.id, locations["fruit_gardens"]["image"])
+            bot.send_photo(message.chat.id, locations['fruit_gardens']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
@@ -192,7 +192,7 @@ def city_jobs_or_back(message):
 
     if user_data[user_id]['money'] > 500:
         bot.send_message(message.chat.id, f"Ты заработал достаточно монет чтобы прикупить себе что-нибудь. "
-                                          f"Отправляйся в {locations["kingdom_magic"]["name"]} и посети местного торговца.")
+                                          f"Отправляйся в {locations['kingdom_magic']['name']} и посети местного торговца.")
     save_user_data(user_data, data_path)
 
 
@@ -237,7 +237,7 @@ def garden_jobs_or_back(message):
 
     if user_data[user_id]['money'] > 500:
         bot.send_message(message.chat.id, f"Ты заработал достаточно монет чтобы прикупить себе что-нибудь. "
-                                          f"Отправляйся в {locations["kingdom_magic"]["name"]} и посети местного торговца.")
+                                          f"Отправляйся в {locations['kingdom_magic']['name']} и посети местного торговца.")
     save_user_data(user_data, data_path)
 
 
@@ -271,15 +271,15 @@ def weapon_shop(message):
     user_id = str(message.from_user.id)
     if user_data[user_id]['money'] < 500:
         bot.send_message(message.chat.id, f"У тебя очень мало монет, чтобы что-то купить.\n "
-                                          f"Но ты можешь посетить {locations["kingdom_light"]["name"]} и заработать там.")
+                                          f"Но ты можешь посетить {locations['kingdom_light']['name']} и заработать там.")
     elif user_data[user_id]['money'] > 500:
         if message.text == locations['weapon_shop']['name']:
-            keyboard = create_buttons([locations['weapon_shop']["weapons"][0]["name"],
-                                       locations['weapon_shop']["weapons"][1]["name"],
-                                       locations['weapon_shop']["weapons"][2]["name"],
+            keyboard = create_buttons([locations['weapon_shop']['weapons'][0]['name'],
+                                       locations['weapon_shop']['weapons'][1]['name'],
+                                       locations['weapon_shop']['weapons'][2]['name'],
                                        back_on_road])
             try:
-                bot.send_photo(message.chat.id, locations['weapon_shop']["image"])
+                bot.send_photo(message.chat.id, locations['weapon_shop']['image'])
             except:
                 bot.send_message(message.chat.id, image_error)
 
@@ -289,48 +289,48 @@ def weapon_shop(message):
             location_one(message.chat.id)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations['weapon_shop']["weapons"][0]["name"],
-                                                           locations['weapon_shop']["weapons"][1]["name"],
-                                                           locations['weapon_shop']["weapons"][2]["name"],
+@bot.message_handler(func=lambda message: message.text in [locations['weapon_shop']['weapons'][0]['name'],
+                                                           locations['weapon_shop']['weapons'][1]['name'],
+                                                           locations['weapon_shop']['weapons'][2]['name'],
                                                            back_on_road])
 def buy_weapon(message):
     user_id = str(message.from_user.id)
-    if message.text == locations['weapon_shop']["weapons"][0]["name"]:
+    if message.text == locations['weapon_shop']['weapons'][0]['name']:
         if user_data[user_id]['money'] < 400:
             bot.send_message(message.chat.id, "У тебя не достаточно монет!")
         else:
             try:
-                bot.send_photo(message.chat.id, locations['weapon_shop']["weapons"][0]["image"])
+                bot.send_photo(message.chat.id, locations['weapon_shop']['weapons'][0]['image'])
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']["weapons"][0]["name"]}🗡\n')
+            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][0]['name']}🗡\n')
             user_data[user_id]['weapon'] = 'Sword'
             user_data[user_id]['money'] -= 400
 
-    elif message.text == locations['weapon_shop']["weapons"][1]["name"]:
+    elif message.text == locations['weapon_shop']['weapons'][1]['name']:
         if user_data[user_id]['money'] < 500:
             bot.send_message(message.chat.id, "У тебя не достаточно монет!")
         else:
             try:
-                bot.send_photo(message.chat.id, locations['weapon_shop']["weapons"][1]["image"])
+                bot.send_photo(message.chat.id, locations['weapon_shop']['weapons'][1]['image'])
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']["weapons"][1]["name"]}🪓\n')
+            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][1]['name']}🪓\n')
             user_data[user_id]['weapon'] = 'Axe'
             user_data[user_id]['money'] -= 500
 
-    elif message.text == locations['weapon_shop']["weapons"][2]["name"]:
+    elif message.text == locations['weapon_shop']['weapons'][2]['name']:
         if user_data[user_id]['money'] < 300:
             bot.send_message(message.chat.id, "У тебя не достаточно монет!")
         else:
             try:
-                bot.send_photo(message.chat.id, locations['weapon_shop']["weapons"][2]["image"])
+                bot.send_photo(message.chat.id, locations['weapon_shop']['weapons'][2]['image'])
             except:
                 bot.send_message(message.chat.id, image_error)
 
-            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']["weapons"][2]["name"]}\n')
+            bot.send_message(message.chat.id, f'Ты купил {locations['weapon_shop']['weapons'][2]['name']}\n')
             user_data[user_id]['weapon'] = 'Spear'
             user_data[user_id]['money'] -= 300
 
@@ -344,38 +344,38 @@ def buy_weapon(message):
 def magic_cat(message):
 
     if message.text == went_to_cat:
-        keyboard = create_buttons([locations['illusion_forest']['cat']["wrong_answers"][0],
-                                   locations['illusion_forest']['cat']["wrong_answers"][1],
-                                   locations['illusion_forest']['cat']["true_answer"],
+        keyboard = create_buttons([locations['illusion_forest']['cat']['wrong_answers'][0],
+                                   locations['illusion_forest']['cat']['wrong_answers'][1],
+                                   locations['illusion_forest']['cat']['true_answer'],
                                    back_on_road])
         try:
-            bot.send_photo(message.chat.id, locations['illusion_forest']['cat']["image"])
+            bot.send_photo(message.chat.id, locations['illusion_forest']['cat']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
         bot.send_message(message.chat.id, "Кот загадывает тебе задку, за которую предлогает ценный для тебя приз."
                                           "Приз - заклинание, которое поможет тебе усмирить паука в Темных тунелях!")
-        bot.send_message(message.chat.id, locations['illusion_forest']['cat']["riddle"], reply_markup=keyboard)
+        bot.send_message(message.chat.id, locations['illusion_forest']['cat']['riddle'], reply_markup=keyboard)
 
     elif message.text == back_on_road:
         location_one(message.chat.id)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations['illusion_forest']['cat']["wrong_answers"][0],
-                                                           locations['illusion_forest']['cat']["wrong_answers"][1],
-                                                           locations['illusion_forest']['cat']["true_answer"]])
+@bot.message_handler(func=lambda message: message.text in [locations['illusion_forest']['cat']['wrong_answers'][0],
+                                                           locations['illusion_forest']['cat']['wrong_answers'][1],
+                                                           locations['illusion_forest']['cat']['true_answer']])
 def solve_riddle(message):
     user_id = str(message.from_user.id)
-    if message.text in locations['illusion_forest']['cat']["wrong_answers"]:
+    if message.text in locations['illusion_forest']['cat']['wrong_answers']:
         try:
-            bot.send_photo(message.chat.id, locations['illusion_forest']['cat']["swamp_image"])
+            bot.send_photo(message.chat.id, locations['illusion_forest']['cat']['swamp_image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
         bot.send_message(message.chat.id, "Ты не угадал. Кот завел тебя в болота и оставил на верную гибель☠️!")
         bot.send_message(message.chat.id, "Чтобы начать заново, нажмите /quest", reply_markup=ReplyKeyboardRemove())
 
-    elif message.text == locations['illusion_forest']['cat']["true_answer"]:
+    elif message.text == locations['illusion_forest']['cat']['true_answer']:
         bot.send_message(message.chat.id, "Поздравляю, ты одгадал загадку и кот нашептал тебе на ухо то самое - "
                                           "очень важное заклинание🪄.\n И отправил тебя обратно.")
         user_data[user_id]['magic'] = True
@@ -383,16 +383,16 @@ def solve_riddle(message):
         location_one(message.chat.id)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations["dark_tunnel"]["name"], back_on_road])
+@bot.message_handler(func=lambda message: message.text in [locations['dark_tunnel']['name'], back_on_road])
 def enter_to_tunnel(message):
     user_id = str(message.from_user.id)
-    if message.text == locations["dark_tunnel"]["name"]:
+    if message.text == locations['dark_tunnel']['name']:
         try:
-            bot.send_photo(message.chat.id, locations["dark_tunnel"]["image"])
+            bot.send_photo(message.chat.id, locations['dark_tunnel']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
-        bot.send_message(message.chat.id, locations["dark_tunnel"]["descriptions"])
+        bot.send_message(message.chat.id, locations['dark_tunnel']['descriptions'])
         if not user_data[user_id]['magic']:
             keyboard = create_buttons([back_on_road])
             bot.send_message(message.chat.id, "Впереди тебя ждет Страж паук, который неуязвим к силовым ударам. "
@@ -400,9 +400,9 @@ def enter_to_tunnel(message):
                                               reply_markup=keyboard)
 
         elif user_data[user_id]['magic']:
-            keyboard = create_buttons([locations["forgotten_fortress"]["name"], back_on_road])
+            keyboard = create_buttons([locations['forgotten_fortress']['name'], back_on_road])
             try:
-                bot.send_photo(message.chat.id, locations["dark_tunnel"]["spider"]['image'])
+                bot.send_photo(message.chat.id, locations['dark_tunnel']['spider']['image'])
             except:
                 bot.send_message(message.chat.id, image_error)
 
@@ -410,17 +410,17 @@ def enter_to_tunnel(message):
                                               "Дальше тебя ждет забытая крепость! Ещё есть возможность вернуться назад.", reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text in [locations["forgotten_fortress"]["name"], back_on_road])
+@bot.message_handler(func=lambda message: message.text in [locations['forgotten_fortress']['name'], back_on_road])
 def fortress(message):
-    if message.text == locations["forgotten_fortress"]["name"]:
+    if message.text == locations['forgotten_fortress']['name']:
         keyboard = create_buttons([ready_to_fight, back_on_road])
         try:
-            bot.send_photo(message.chat.id, locations["forgotten_fortress"]["image"])
+            bot.send_photo(message.chat.id, locations['forgotten_fortress']['image'])
         except:
             bot.send_message(message.chat.id, image_error)
 
-        bot.send_message(message.chat.id, f"{locations["forgotten_fortress"]["name"]}\n"
-                                          f"{locations["forgotten_fortress"]["descriptions"]}", reply_markup=keyboard)
+        bot.send_message(message.chat.id, f"{locations['forgotten_fortress']['name']}\n"
+                                          f"{locations['forgotten_fortress']['descriptions']}", reply_markup=keyboard)
         bot.send_message(message.chat.id, "Сейчас тебе предстоит сразится с Темным рыцарем, готов?")
     elif message.text == back_on_road:
         location_one(message.chat.id)
@@ -431,10 +431,10 @@ def finish_fight(message):
     user_id = str(message.from_user.id)
     if message.text == ready_to_fight:
         if user_data[user_id]['weapon'] == 'Sword':
-            chance = random.choice(["Win", "Lose"])
+            chance = random.choice(['Win', 'Lose'])
             if chance == "Win":
                 try:
-                    bot.send_photo(message.chat.id, locations["forgotten_fortress"]["final_fight_img"][1])
+                    bot.send_photo(message.chat.id, locations['forgotten_fortress']['final_fight_img'][1])
                 except:
                     bot.send_message(message.chat.id, image_error)
 
@@ -442,9 +442,9 @@ def finish_fight(message):
                                                    "Но помни, это всего-лишь везение")
                 bot.send_message(message.chat.id, "Квест окончен! Чтобы начать заново, воспользуйся командой - /quest", reply_markup=ReplyKeyboardRemove())
 
-            elif chance == "Lose":
+            elif chance == 'Lose':
                 try:
-                    bot.send_photo(message.chat.id, locations["forgotten_fortress"]["final_fight_img"][0])
+                    bot.send_photo(message.chat.id, locations['forgotten_fortress']['final_fight_img'][0])
                 except:
                     bot.send_message(message.chat.id, image_error)
 
@@ -453,7 +453,7 @@ def finish_fight(message):
 
         elif user_data[user_id]['weapon'] == 'Axe':
             try:
-                bot.send_photo(message.chat.id, locations["forgotten_fortress"]["final_fight_img"][2])
+                bot.send_photo(message.chat.id, locations['forgotten_fortress']['final_fight_img'][2])
             except:
                 bot.send_message(message.chat.id, image_error)
 
@@ -462,7 +462,7 @@ def finish_fight(message):
 
         elif user_data[user_id]['weapon'] == 'Spear':
             try:
-                bot.send_photo(message.chat.id, locations["forgotten_fortress"]["final_fight_img"][3])
+                bot.send_photo(message.chat.id, locations['forgotten_fortress']['final_fight_img'][3])
             except:
                 bot.send_message(message.chat.id, image_error)
 
